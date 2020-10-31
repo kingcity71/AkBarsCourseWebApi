@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using WebApi.Models;
 
-namespace WebApi.Interfaces
+namespace PriceService.Interfaces
 {
     public interface IPriceService
     {

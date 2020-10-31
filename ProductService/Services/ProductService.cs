@@ -1,22 +1,24 @@
 using System;
 using System.Collections.Generic;
-using WebApi.Interfaces;
+using System.Linq;
+using System.Threading.Tasks;
+using ProductService.Clients;
+using ProductService.Interfaces;
 using WebApi.Models;
 
-namespace WebApi.Services
+namespace ProductService.Services
 {
     public class ProductService : IProductService
     {
-        private readonly IImageService _imageService;
-        private readonly IPriceService _priceService;
+        private readonly IImageClient _imageClient;
+        private readonly IPriceClient _priceClient;
 
-        public ProductService(IImageService imageService, IPriceService priceService)
+        public ProductService(IImageClient imageClient, IPriceClient priceClient)
         {
-            _imageService = imageService;
-            _priceService = priceService;
+            _imageClient = imageClient;
+            _priceClient = priceClient;
         }
-
-        public IEnumerable<Product> GetAll()
+        public async Task<IEnumerable<Product>> GetAll()
         {
             var products = new[]
             {
@@ -37,13 +39,18 @@ namespace WebApi.Services
                 }
             };
 
+            var allImages = await _imageClient.GetAll();
+            var allPrices = await _priceClient.GetAll();
+
             foreach (var product in products)
             {
-                product.Images = _imageService.GetImagesByProductId(product.Id);
-                product.Prices = _priceService.GetPricesByProductId(product.Id);
+                product.Images = allImages.Where(x => x.ProductId == product.Id).ToList();
+                product.Prices = allPrices.Where(x => x.ProductId == product.Id).ToList();
             }
 
             return products;
         }
+
+
     }
 }

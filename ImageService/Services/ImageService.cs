@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebApi.Interfaces;
+using ImageService.Interfaces;
 using WebApi.Models;
 
-namespace WebApi.Services
+namespace ImageService.Services
 {
-    public class ImageService : IImageService
+     public class ImageService : IImageService
     {
         private IEnumerable<Image> _images =
             new[]

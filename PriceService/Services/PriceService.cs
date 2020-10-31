@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebApi.Interfaces;
+using PriceService.Interfaces;
+
 using WebApi.Models;
 
-namespace WebApi.Services
+namespace PriceService.Services
 {
     public class PriceService : IPriceService
     {

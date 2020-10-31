@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ImageService.Interfaces;
+using ImgService = ImageService.Services.ImageService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,10 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using WebApi.Interfaces;
-using WebApi.Services;
 
-namespace WebApi
+namespace ImageService
 {
     public class Startup
     {
@@ -28,10 +28,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
-            services.AddScoped<IImageService, ImageService>();
-            services.AddScoped<IPriceService, PriceService>();
-            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IImageService, ImgService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
